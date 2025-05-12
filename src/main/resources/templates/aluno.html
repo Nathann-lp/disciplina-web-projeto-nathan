@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Alunos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">UEG - Desenvolvimento Web</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/alunos">Alunos</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo -->
+    <div class="container mt-5">
+        <div class="card p-4 shadow">
+            <h2 class="text-primary mb-4" th:text="${mensagem}">Lista de Alunos</h2>
+
+            <!-- Formulário de busca -->
+            <form action="/alunos/busca" method="get" class="row g-3 mb-3">
+                <div class="col-md-10">
+                    <input type="text" name="nome" class="form-control" placeholder="Nome do Aluno">
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary w-100" type="submit">Buscar</button>
+                </div>
+            </form>
+
+            <a href="/alunos/create" class="btn btn-success mb-3">Novo Aluno</a>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="aluno : ${alunos}">
+                        <td th:text="${aluno.nome}">Nome</td>
+                        <td th:text="${aluno.email}">Email</td>
+                        <td>
+                            <a th:href="@{'/alunos/update/' + ${aluno.id}}" class="btn btn-sm btn-warning">Editar</a>
+                            <a th:href="@{'/alunos/delete/' + ${aluno.id}}" class="btn btn-sm btn-danger">Excluir</a>
+                            <a th:href="@{'/alunos/update/telefone/' + ${aluno.id}}" class="btn btn-sm btn-info">Telefones</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
